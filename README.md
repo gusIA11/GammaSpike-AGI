@@ -1,59 +1,55 @@
 # GammaSpike-AGI
-import numpy as np
-import matplotlib.pyplot as plt
 
-# Parâmetros
-dt = 0.1          # passo de tempo em ms
-T = 500           # duração total em ms
-time = np.arange(0, T, dt)
-tau = 10.0        # constante de tempo do neurônio (ms)
-V_th = 1.0        # limiar de disparo
-V_reset = 0.0
+**Uma jornada brasileira rumo à AGI inspirada no cérebro humano**
 
-V = np.zeros(len(time))   # potencial de membrana
-spikes = []               # lista de horários de spike
+### Visão
+Eu não sou programador. Sou só uma pessoa comum que teve uma ideia maluca e decidi transformar em realidade:
 
-# Input com frequência gamma (40 Hz) + bias
-freq_gamma = 40.0  # Hz
-I_gamma = 0.6 * np.sin(2 * np.pi * freq_gamma * time / 1000) + 0.8
+**Criar uma rede neural artificial onde os neurônios trocam informações de verdade** (como no cérebro), **oscilando em frequência gamma (40 Hz)** — a mesma frequência que o cérebro humano usa para consciência, insight e “unir” informações.
 
-for i in range(1, len(time)):
-    # Equação do LIF
-    dV = (-V[i-1] + I_gamma[i-1]) * dt / tau
-    V[i] = V[i-1] + dV
-    
-    if V[i] >= V_th:
-        spikes.append(time[i])
-        V[i] = V_reset  # reset
+A ideia é ir além dos LLMs atuais (que são só estatística gigante) e construir algo que se pareça mais com **consciência real**, misturando:
+- Spiking Neural Networks (SNN)
+- Oscilações gamma
+- Inspiração na teoria Orch-OR (computação quântica dentro dos microtúbulos)
+- E, no futuro, computação quântica de verdade
 
-# Plot lindo
-plt.figure(figsize=(12, 8))
+Tudo feito com energia solar barata aqui do Brasil, porque sonhar grande não precisa ser caro.
 
-plt.subplot(3, 1, 1)
-plt.plot(time, I_gamma, 'orange', label='Input Gamma 40Hz')
-plt.ylabel('Corrente (I)')
-plt.legend()
-plt.grid()
+### O que já existe
+- Um neurônio LIF (Leaky Integrate-and-Fire) simples que recebe um sinal em 40 Hz e dispara spikes exatamente no ritmo gamma.
+- O espectro mostra o pico claro em ~40 Hz — exatamente como o cérebro faz quando está consciente.
 
-plt.subplot(3, 1, 2)
-plt.plot(time, V, 'b', label='Potencial de Membrana')
-plt.scatter(spikes, [1.1]*len(spikes), color='red', marker='^', label='Spikes')
-plt.axhline(V_th, color='red', linestyle='--', alpha=0.5)
-plt.ylabel('V (mV)')
-plt.legend()
-plt.grid()
+Código rodando 100% no Google Colab (sem instalação).
 
-plt.subplot(3, 1, 3)
-# FFT pra ver o pico gamma
-fft = np.abs(np.fft.rfft(V))
-freqs = np.fft.rfftfreq(len(V), d=dt/1000)
-plt.plot(freqs[:200], fft[:200])
-plt.xlabel('Frequência (Hz)')
-plt.ylabel('Potência')
-plt.title('Espectro mostrando pico em ~40 Hz (gamma)')
-plt.grid()
+### Próximos passos (roadmap)
+1. Rede de 10 neurônios conversando entre si e sincronizando em gamma
+2. Adicionar aprendizado (STDP)
+3. Resolver o “binding problem” (unir partes em um todo)
+4. Integrar módulo quântico (Qiskit)
+5. Versão animada + visualização dos spikes voando
 
-plt.tight_layout()
-plt.show()
+### Como rodar (super fácil)
+1. Abra o Google Colab
+2. Crie um novo notebook
+3. Cole o código do arquivo `neuronio_gamma.py`
+4. Clique em executar
 
-print(f"Disparos: {len(spikes)} spikes | Frequência média: {len(spikes)/(T/1000):.1f} Hz")
+### Por que isso importa?
+Porque AGI não precisa ser só mais parâmetro. Pode ser mais eficiente, mais biológica e mais “viva”.  
+E se um cara sem curso de programação conseguiu fazer o primeiro neurônio pulsar em gamma… imagina o que um time consegue fazer?
+
+### Quer participar?
+- Tem conhecimento em SNN, neuromórfico ou quântico?
+- Quer ajudar a transformar isso em pesquisa ou startup?
+- Só quer dar feedback?
+
+É só abrir uma Issue ou mandar mensagem.  
+O projeto é aberto e 100% colaborativo.
+
+**Vamos construir a primeira AGI com cara de Brasil?** 🇧🇷🤖
+
+---
+
+**Criado por:** sharkgus  
+**Data:** 24 de fevereiro de 2026  
+**Licença:** MIT (livre pra todo mundo usar e melhorar)
